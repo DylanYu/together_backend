@@ -39,15 +39,16 @@ public class RequestHandler {
 		while(rs.next()) {
 			JSONObject obj = new JSONObject();
 			obj.put("eid", rs.getString(1));
-			obj.put("ename", rs.getString(2));
+			obj.put("place", rs.getString(2));
 			obj.put("uid", rs.getString(3));
 			obj.put("type", rs.getString(4));
-			obj.put("longitude", rs.getString(5));
-			obj.put("latitude", rs.getString(6));
-			obj.put("startDate", rs.getString(7));
-			obj.put("startTime", rs.getString(8));
-			obj.put("endDate", rs.getString(9));
-			obj.put("endTime", rs.getString(10));
+			obj.put("description", rs.getString(5));
+			obj.put("longitude", rs.getString(6));
+			obj.put("latitude", rs.getString(7));
+			obj.put("startDate", rs.getString(8));
+			obj.put("startTime", rs.getString(9));
+			obj.put("endDate", rs.getString(10));
+			obj.put("endTime", rs.getString(11));
 			array.add(obj);
 		}
 		return array;

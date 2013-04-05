@@ -44,10 +44,10 @@ public class NewEventServlet extends HttpServlet {
 			String description = null;
 			String longitude = null;
 			String latitude = null;
-			String startDate = null;
+			String startDate = "1990-03-31";
 			String startTime = null;
-			String endDate = null;
-			String endTime = null;
+			String endDate = "1990-03-31";
+			String endTime = "00:00:00";
 			JSONObject requestJson = new JSONObject();
 			String fromClient = new String();
 			if(sb.toString().equals("")){
