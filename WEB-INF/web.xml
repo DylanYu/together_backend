@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app>
+
+	<servlet>
+		<servlet-name>ListUserServlet</servlet-name>
+		<servlet-class>servlet.ListUserServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ListUserServlet</servlet-name>
+		<url-pattern>/ListUser</url-pattern>
+	</servlet-mapping>
+		
+	<servlet>
+		<servlet-name>UpdateUserLocationServlet</servlet-name>
+		<servlet-class>servlet.UpdateUserLocationServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UpdateUserLocationServlet</servlet-name>
+		<url-pattern>/UpdateUserLocation</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>NewEventServlet</servlet-name>
+		<servlet-class>servlet.NewEventServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NewEventServlet</servlet-name>
+		<url-pattern>/NewEvent</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ListEventServlet</servlet-name>
+		<servlet-class>servlet.ListEventServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ListEventServlet</servlet-name>
+		<url-pattern>/ListEvent</url-pattern>
+	</servlet-mapping>
+	
+	<welcome-file-list>
+        <welcome-file>index.html</welcome-file> 
+    </welcome-file-list>
+</web-app>
