@@ -31,16 +31,17 @@ public class NewEventServlet extends HttpServlet {
 			/* 读取数据 */
 			BufferedReader br = new BufferedReader(
 					new InputStreamReader((ServletInputStream) request.getInputStream(), "utf-8"));
-			StringBuffer sb =new StringBuffer("");
+			StringBuffer sb =new StringBuffer();
 			String temp;
 			while((temp=br.readLine())!=null){
 				sb.append(temp);
 			}
 			br.close();
 			
-			String ename = null;
+			String place = null;
 			String uid = null;
 			String type = null;
+			String description = null;
 			String longitude = null;
 			String latitude = null;
 			String startDate = null;
@@ -50,31 +51,41 @@ public class NewEventServlet extends HttpServlet {
 			JSONObject requestJson = new JSONObject();
 			String fromClient = new String();
 			if(sb.toString().equals("")){
-				fromClient = "{\"no\":\"no\"}";
+				//fromClient = "{\"no\":\"no\"}";
 				uid = "0";
-				requestJson = JSONObject.fromObject(fromClient);
+				//requestJson = JSONObject.fromObject(fromClient);
+				requestJson = null;
 			}
 			else {
 				fromClient = sb.toString();
 				requestJson = JSONObject.fromObject(fromClient);
+				place = requestJson.getString("place");
 				uid = requestJson.getString("uid");
+				type = requestJson.getString("type");
+				description = requestJson.getString("description");
+				longitude = requestJson.getString("longitude");
+				latitude = requestJson.getString("latitude");
+				startTime = requestJson.getString("startTime");
 			}
-			
-			RequestHandler handler = new RequestHandler();
-			boolean success = handler.newEvent(ename, uid, type, longitude, latitude, startDate, startTime, endDate, endTime);
-			StringBuffer sbResult = new StringBuffer();
-			if(!success)
-				sbResult.append("fail\n");
-			else
-				sbResult.append("success\n");
-			sbResult.append("from client:\n" + requestJson.toString());
-			result = sbResult.toString();
+			if(requestJson == null)
+				result = "fail"/* + "\nserver:" + sb.toString()*/;
+			else {
+				RequestHandler handler = new RequestHandler();
+				int success = handler.newEvent(place, uid, type, description, longitude, latitude, startDate, startTime, endDate, endTime);
+				StringBuffer sbResult = new StringBuffer();
+				if(success > 0)
+					sbResult.append("success\n");
+				else
+					sbResult.append("fail\n");
+				result = sbResult.toString()/* + "\nserver:" + sb.toString()*/;
+			}
 		} catch (Exception e) {
 			result = "{err:\"error\"}" + e.toString();
 		} finally {
 			/* 返回数据 */
 			System.out.println("返回报文:" + result);
 			PrintWriter pw = response.getWriter();
+			response.setCharacterEncoding("utf-8");
 			pw.write(result);
 			pw.flush();
 			pw.close();

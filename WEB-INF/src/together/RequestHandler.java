@@ -53,21 +53,22 @@ public class RequestHandler {
 		return array;
 	}
 	
-	public boolean newEvent(String ename, String uid, String type, 
+	public int newEvent(String place, String uid, String type, String description,
 			String longitude, String latitude, String startDate, 
 			String startTime, String endDate, String endTime) throws SQLException{
-		String newEvent = "insert into event values(null,?,?,?,?,?,?,?,?,?)";
+		String newEvent = "insert into event values(null,?,?,?,?,?,?,?,?,?,?)";
 		PreparedStatement pstmtNewEvent = conn.prepareStatement(newEvent);
-		pstmtNewEvent.setString(1, ename);
+		pstmtNewEvent.setString(1, place);
 		pstmtNewEvent.setString(2, uid);
 		pstmtNewEvent.setString(3, type);
-		pstmtNewEvent.setString(4, longitude);
-		pstmtNewEvent.setString(5, latitude);
-		pstmtNewEvent.setString(6, startDate);
-		pstmtNewEvent.setString(7, startTime);
-		pstmtNewEvent.setString(8, endDate);
-		pstmtNewEvent.setString(9, endTime);
-		boolean success = pstmtNewEvent.execute();
+		pstmtNewEvent.setString(4, description);
+		pstmtNewEvent.setString(5, longitude);
+		pstmtNewEvent.setString(6, latitude);
+		pstmtNewEvent.setString(7, startDate);
+		pstmtNewEvent.setString(8, startTime);
+		pstmtNewEvent.setString(9, endDate);
+		pstmtNewEvent.setString(10, endTime);
+		int success = pstmtNewEvent.executeUpdate();
 		return success;
 	}
 	

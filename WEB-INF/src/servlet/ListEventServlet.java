@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -76,10 +77,13 @@ public class ListEventServlet extends HttpServlet {
 		} finally {
 			/* 返回数据 */
 			System.out.println("返回报文:" + result);
+			response.setCharacterEncoding("utf-8");
 			PrintWriter pw = response.getWriter();
 			pw.write(result);
 			pw.flush();
 			pw.close();
+//			DataOutputStream out = new DataOutputStream(response.getOutputStream());
+//			out.writeUTF(result);
 		}
 	}
 

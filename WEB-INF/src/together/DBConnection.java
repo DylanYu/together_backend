@@ -34,7 +34,7 @@ public class DBConnection {
 		}
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
 		conn = DriverManager.getConnection(
-				String.format("jdbc:mysql://%s:%s/%s", host2, port, db), 
+				String.format("jdbc:mysql://%s:%s/%s", host, port, db), 
 				user, pass);
 		return conn;
 	}
