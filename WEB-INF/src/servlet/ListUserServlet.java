@@ -39,6 +39,7 @@ public class ListUserServlet extends HttpServlet {
 			br.close();
 			
 			String uid = new String();
+			String radius = new String();
 			JSONObject requestJson = new JSONObject();
 			String fromClient = new String();
 			if(sb.toString().equals("")){
@@ -50,18 +51,22 @@ public class ListUserServlet extends HttpServlet {
 				fromClient = sb.toString();
 				requestJson = JSONObject.fromObject(fromClient);
 				uid = requestJson.getString("uid");
+				radius = requestJson.getString("radius");
 			}
 			
 			RequestHandler handler = new RequestHandler();
-			ArrayList<JSONObject> array = handler.listUser(uid);
+			ArrayList<JSONObject> array = handler.listUser(uid, radius);
 			StringBuffer sbResult = new StringBuffer();
+			sbResult.append("{\"user\":[");
 			if(array == null)
-				sbResult.append("no result\n");
+				sbResult.append("{\"no\":\"result\"}");
 			else
-				for(JSONObject obj: array) {
-					sbResult.append(obj.toString()+ "\n");
+				for(int i = 0; i < array.size(); i++) {
+					sbResult.append(array.get(i).toString());
+					if(i != array.size() - 1)
+						sbResult.append(",");
 				}
-			sbResult.append("from client:\n" + requestJson.toString());
+			sbResult.append("]}");
 			result = sbResult.toString();
 		} catch (Exception e) {
 			result = "{err:\"error\"}" + e.toString();
@@ -69,7 +74,7 @@ public class ListUserServlet extends HttpServlet {
 			/* 返回数据 */
 			System.out.println("返回报文:" + result);
 			PrintWriter pw = response.getWriter();
-			pw.write("from server:\n" + result);
+			pw.write(result);
 			pw.flush();
 			pw.close();
 		}

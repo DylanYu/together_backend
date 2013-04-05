@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
+
 import together.RequestHandler;
 
 import net.sf.json.JSONObject;
@@ -38,7 +40,7 @@ public class ListEventServlet extends HttpServlet {
 			}
 			br.close();
 			
-			String uid;
+			String uid = null;
 			String radius = null;
 			JSONObject requestJson = new JSONObject();
 			String fromClient = new String();
@@ -57,13 +59,17 @@ public class ListEventServlet extends HttpServlet {
 			RequestHandler handler = new RequestHandler();
 			ArrayList<JSONObject> array = handler.listEvent(uid, radius);
 			StringBuffer sbResult = new StringBuffer();
+			sbResult.append("{\"event\":[");
 			if(array == null)
-				sbResult.append("no result\n");
+				sbResult.append("{\"no\":\"result\"}");
 			else
-				for(JSONObject obj: array) {
-					sbResult.append(obj.toString()+ "\n");
+				for(int i = 0; i < array.size(); i++) {
+					sbResult.append(array.get(i).toString());
+					if(i != array.size() - 1)
+						sbResult.append(",");
 				}
-			sbResult.append("from client:\n" + requestJson.toString());
+			sbResult.append("]}");
+			//sbResult.append("from client:\n" + requestJson.toString());
 			result = sbResult.toString();
 		} catch (Exception e) {
 			result = "{err:\"error\"}" + e.toString();
@@ -71,7 +77,7 @@ public class ListEventServlet extends HttpServlet {
 			/* 返回数据 */
 			System.out.println("返回报文:" + result);
 			PrintWriter pw = response.getWriter();
-			pw.write("from server:\n" + result);
+			pw.write(result);
 			pw.flush();
 			pw.close();
 		}

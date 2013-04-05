@@ -73,7 +73,7 @@ public class UpdateUserLocationServlet extends HttpServlet {
 			/* 返回数据 */
 			System.out.println("返回报文:" + result);
 			PrintWriter pw = response.getWriter();
-			pw.write("from server:\n" + result);
+			pw.write(result);
 			pw.flush();
 			pw.close();
 		}
