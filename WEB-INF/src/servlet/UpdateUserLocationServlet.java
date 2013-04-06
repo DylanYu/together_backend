@@ -59,13 +59,12 @@ public class UpdateUserLocationServlet extends HttpServlet {
 			}
 			
 			RequestHandler handler = new RequestHandler();
-			boolean success= handler.updateUserLocation(uid, longitude, latitude);
+			int success= handler.updateUserLocation(uid, longitude, latitude);
 			StringBuffer sbResult = new StringBuffer();
-			if(!success)
-				sbResult.append("fail\n");
+			if(success > 0)
+				sbResult.append("successl\n");
 			else
-				sbResult.append("success\n");
-			sbResult.append("from client:\n" + requestJson.toString());
+				sbResult.append("fail\n");
 			result = sbResult.toString();
 		} catch (Exception e) {
 			result = "{err:\"error\"}" + e.toString();

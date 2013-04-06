@@ -1,14 +1,10 @@
 package servlet;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -17,14 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONArray;
-
+import net.sf.json.JSONObject;
 import together.RequestHandler;
 
-import net.sf.json.JSONObject;
-
-
-public class ListEventServlet extends HttpServlet {
+public class ListFollowServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -41,24 +33,25 @@ public class ListEventServlet extends HttpServlet {
 			}
 			br.close();
 			
-			String uid = null;
-			String radius = null;
+			String startUid = null;
+			String followUid = null;
 			JSONObject requestJson = new JSONObject();
 			String fromClient = new String();
 			if(sb.toString().equals("")){
 				fromClient = "{\"no\":\"no\"}";
-				uid = "0";
+				startUid = "0";
+				followUid = "0";
 				requestJson = JSONObject.fromObject(fromClient);
 			}
 			else {
 				fromClient = sb.toString();
 				requestJson = JSONObject.fromObject(fromClient);
-				uid = requestJson.getString("uid");
-				radius = requestJson.getString("radius");
+				startUid = requestJson.getString("startUid");
+				followUid = requestJson.getString("followUid");
 			}
 			
 			RequestHandler handler = new RequestHandler();
-			ArrayList<JSONObject> array = handler.listEvent(uid, radius);
+			ArrayList<JSONObject> array = handler.listFollowEvent(startUid, followUid);
 			StringBuffer sbResult = new StringBuffer();
 			sbResult.append("{\"event\":[");
 			if(array == null)
@@ -84,7 +77,7 @@ public class ListEventServlet extends HttpServlet {
 	}
 
 
-	public ListEventServlet() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+	public ListFollowServlet() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
 		super();
 	}
 

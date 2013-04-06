@@ -38,6 +38,33 @@
 		<url-pattern>/ListEvent</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>FollowServlet</servlet-name>
+		<servlet-class>servlet.FollowServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FollowServlet</servlet-name>
+		<url-pattern>/FollowServlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>UnfollowServlet</servlet-name>
+		<servlet-class>servlet.UnfollowServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UnfollowServlet</servlet-name>
+		<url-pattern>/UnfollowServlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ListFollowServlet</servlet-name>
+		<servlet-class>servlet.ListFollowServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ListFollowServlet</servlet-name>
+		<url-pattern>/ListFollowServlet</url-pattern>
+	</servlet-mapping>
+	
 	<welcome-file-list>
         <welcome-file>index.html</welcome-file> 
     </welcome-file-list>

@@ -73,14 +73,11 @@ public class ListUserServlet extends HttpServlet {
 			result = "{err:\"error\"}" + e.toString();
 		} finally {
 			/* 返回数据 */
-			System.out.println("返回报文:" + result);
 			response.setCharacterEncoding("utf-8");
 			PrintWriter pw = response.getWriter();
 			pw.write(result);
 			pw.flush();
 			pw.close();
-//			DataOutputStream out = new DataOutputStream(response.getOutputStream());
-//			out.writeUTF(result);
 		}
 	}
 
