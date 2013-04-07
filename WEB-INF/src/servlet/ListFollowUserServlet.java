@@ -51,9 +51,7 @@ public class ListFollowUserServlet extends HttpServlet {
 			ArrayList<JSONObject> array = handler.listFollowUser(eid);
 			StringBuffer sbResult = new StringBuffer();
 			sbResult.append("{\"user\":[");
-			if(array == null)
-				sbResult.append("{\"no\":\"result\"}");
-			else
+			if(array != null)
 				for(int i = 0; i < array.size(); i++) {
 					sbResult.append(array.get(i).toString());
 					if(i != array.size() - 1)

@@ -33,7 +33,7 @@ public class RequestHandler {
 	
 	public ArrayList<JSONObject> listEvent(String uid, String radius) throws SQLException{
 		ArrayList<JSONObject> array = new ArrayList<JSONObject>();
-		String queryEventAll = "select * from event";
+		String queryEventAll = "select * from event order by starttime desc";
 		PreparedStatement pstmtQueryEventAll = conn.prepareStatement(queryEventAll);
 		ResultSet rs = pstmtQueryEventAll.executeQuery();
 		while(rs.next()) {
@@ -56,12 +56,15 @@ public class RequestHandler {
 	
 	public ArrayList<JSONObject> listFollowUser(String eid) throws SQLException{
 		ArrayList<JSONObject> array = new ArrayList<JSONObject>();
-		String queryEvent = "select followuid from follow where eid='" + eid + "')";
+		String queryEvent = "select * from user where uid in" +
+				"(select followuid from follow where eid='" + eid + "')";
 		PreparedStatement pstmtQueryEid = conn.prepareStatement(queryEvent);
 		ResultSet rs = pstmtQueryEid.executeQuery();
 		while(rs.next()) {
 			JSONObject obj = new JSONObject();
 			obj.put("uid", rs.getString(1));
+			obj.put("longitude", rs.getString(3));
+			obj.put("latitude", rs.getString(4));
 			array.add(obj);
 		}
 		return array;
@@ -72,10 +75,9 @@ public class RequestHandler {
 		String queryEvent = null;
 		if(startUid.equals("0"))
 			queryEvent = "select * from event where eid in " +
-					"(select eid from follow where followuid='" + followUid + "')";
+					"(select eid from follow where followuid='" + followUid + "') order by starttime desc";
 		else
-			queryEvent = "select * from event where eid in " +
-					"(select eid from follow where startuid='" + startUid + "')";
+			queryEvent = "select * from event where uid='" + startUid + "' order by starttime desc";
 		PreparedStatement pstmtQueryEid = conn.prepareStatement(queryEvent);
 		ResultSet rs = pstmtQueryEid.executeQuery();
 		while(rs.next()) {
