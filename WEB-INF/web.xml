@@ -57,12 +57,21 @@
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>ListFollowServlet</servlet-name>
-		<servlet-class>servlet.ListFollowServlet</servlet-class>
+		<servlet-name>ListFollowEventServlet</servlet-name>
+		<servlet-class>servlet.ListFollowEventServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>ListFollowServlet</servlet-name>
-		<url-pattern>/ListFollow</url-pattern>
+		<servlet-name>ListFollowEventServlet</servlet-name>
+		<url-pattern>/ListFollowEvent</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ListFollowUserServlet</servlet-name>
+		<servlet-class>servlet.ListFollowUserServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ListFollowUserServlet</servlet-name>
+		<url-pattern>/ListFollowUser</url-pattern>
 	</servlet-mapping>
 	
 	<welcome-file-list>

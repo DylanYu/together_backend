@@ -54,6 +54,19 @@ public class RequestHandler {
 		return array;
 	}
 	
+	public ArrayList<JSONObject> listFollowUser(String eid) throws SQLException{
+		ArrayList<JSONObject> array = new ArrayList<JSONObject>();
+		String queryEvent = "select followuid from follow where eid='" + eid + "')";
+		PreparedStatement pstmtQueryEid = conn.prepareStatement(queryEvent);
+		ResultSet rs = pstmtQueryEid.executeQuery();
+		while(rs.next()) {
+			JSONObject obj = new JSONObject();
+			obj.put("uid", rs.getString(1));
+			array.add(obj);
+		}
+		return array;
+	}
+	
 	public ArrayList<JSONObject> listFollowEvent(String startUid, String followUid) throws SQLException{
 		ArrayList<JSONObject> array = new ArrayList<JSONObject>();
 		String queryEvent = null;
