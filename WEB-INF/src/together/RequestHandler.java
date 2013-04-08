@@ -75,7 +75,8 @@ public class RequestHandler {
 		String queryEvent = null;
 		if(startUid.equals("0"))
 			queryEvent = "select * from event where eid in " +
-					"(select eid from follow where followuid='" + followUid + "') order by starttime desc";
+							"(select eid from follow where " +
+							"followuid='" + followUid + "') order by starttime desc";
 		else
 			queryEvent = "select * from event where uid='" + startUid + "' order by starttime desc";
 		PreparedStatement pstmtQueryEid = conn.prepareStatement(queryEvent);

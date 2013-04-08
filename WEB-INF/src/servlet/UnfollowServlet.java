@@ -66,7 +66,6 @@ public class UnfollowServlet extends HttpServlet{
 			result = "{err:\"error\"}" + e.toString();
 		} finally {
 			/* 返回数据 */
-			System.out.println("返回报文:" + result);
 			PrintWriter pw = response.getWriter();
 			response.setCharacterEncoding("utf-8");
 			pw.write(result);

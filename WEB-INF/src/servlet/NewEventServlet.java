@@ -68,7 +68,7 @@ public class NewEventServlet extends HttpServlet {
 				startTime = requestJson.getString("startTime");
 			}
 			if(requestJson == null)
-				result = "fail"/* + "\nserver:" + sb.toString()*/;
+				result = "fail";
 			else {
 				RequestHandler handler = new RequestHandler();
 				int success = handler.newEvent(place, uid, type, description, longitude, latitude, startDate, startTime, endDate, endTime);
@@ -77,13 +77,12 @@ public class NewEventServlet extends HttpServlet {
 					sbResult.append("success\n");
 				else
 					sbResult.append("fail\n");
-				result = sbResult.toString()/* + "\nserver:" + sb.toString()*/;
+				result = sbResult.toString();
 			}
 		} catch (Exception e) {
 			result = "{err:\"error\"}" + e.toString();
 		} finally {
 			/* 返回数据 */
-			System.out.println("返回报文:" + result);
 			PrintWriter pw = response.getWriter();
 			response.setCharacterEncoding("utf-8");
 			pw.write(result);
